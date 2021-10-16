@@ -73,7 +73,7 @@ function grename() {
 function gcmsg () {
   loghours
   branch=$(git_current_branch) 
-  if [ ${branch} == "master" ]
+  if [[ ${branch} == "master" ]]
   then
     echo "You are on master, please checkout a branch."
     return

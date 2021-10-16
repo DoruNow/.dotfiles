@@ -48,7 +48,10 @@ launch() {
 }
 
 erp() {
-    sudo lsof -i -P -n | grep 3000 | awk '{ print $2}' | xargs sudo kill -9 | > /dev/null
+    if sudo lsof -i -P -n | grep -q 3000
+    then
+        sudo lsof -i -P -n | grep 3000 | awk '{ print $2}' | xargs sudo kill -9 | > /dev/null
+    fi
     tmux new-session -d -s erp \; \
     send-keys 'z erp8 && npm run serve' C-m \; \
     split-window -v \; \
