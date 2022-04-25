@@ -13,4 +13,6 @@ alias mnt="mount | awk -F' ' '{ printf \"%s\t%s\n\",\$1,\$3; }' | column -t | eg
 alias tail-test="tail -f /home/doru/Desktop/test-log"
 alias source-all="for f in /home/doru/.dotfiles/*.sh; do source $f; done"
 alias fix="npm run lint --fix"
+alias serve="npm run serve"
+alias start="npm run start"
 

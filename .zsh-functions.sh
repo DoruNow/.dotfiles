@@ -19,6 +19,9 @@ sp() {
     elif [ $project = "7" ]
     then
       code -$flag ~/dev/softwear-development/v7
+    elif [ $project = "8" ]
+    then
+      code -$flag ~/dev/erp/erp8
     elif [ $project = "sd" ]
     then
       code -$flag ~/dev/softwear-development
@@ -90,8 +93,12 @@ listen-to-tests() {
 }
 
 plan() {
+  code /home/doru/tm/planhabit;
   tmux new-session -d -s plan \; \
   send-keys 'z plan && code . && npm run serve' C-m \; \
+  split-window -v \; \
+  select-pane -t 1 \; \
+  send-keys 'google-chrome' C-m \; \
 }
 
 gcbd() {
