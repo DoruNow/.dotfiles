@@ -1,5 +1,52 @@
 #!/bin/zsh
+formatSeconds() {
+  ((h=$1/3600))
+  ((m=($1%3600)/60))
+  ((s=$1%60))
+  printf "%02d:%02d:%02d\n" $h $m $s
+}
 
+time-left() {
+  formatSeconds $WORK_TIMER
+}
+
+start-music-server() {
+  tmux new-session -d -s music-server\; \
+  send-keys 'mocp -m' C-m \; \;
+}
+
+countdown-rules() {
+  local prevCount=$1
+  if [ $(($prevCount)) -gt 0 ] ; then
+    echo a
+    export $WORK_TIMER=$(($prevCount-5))
+    echo $WORK_TIMER
+  else
+    mocp -p
+    return
+  fi
+}
+
+start-countdown() {
+  local seconds=$1
+
+  re='^[0-9]+$'
+  if ! [[ $1 =~ $re ]] ; then
+    echo "Not a number, please give me a period in seconds \nUsage for 2 hours: countdown \$(expr 2 \* 60 \* 60)" >&2;
+    return
+  fi
+
+  # start-music-server && echo "Music server running in tmux. Session name: music-server"
+
+  export WORK_TIMER=$((seconds))
+  echo "Countdown timer set for $(formatSeconds $1)"
+
+  watch -n 5 $(countdown-rules)
+}
+
+pause-countdown() {
+
+}
 # switch project
 # assumes pathing, understands 6 / 7 as project args for v6/v7
 sp() {
