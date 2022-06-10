@@ -82,7 +82,7 @@ function gcmsg () {
   branch=${branch%-[[:alpha:]]} 
   if [[ $2 == "n" ]]
   then
-    git commit -nm "$branch $1"
+    git commit -m "$branch $1" --no-verify
   else
     git commit -m "$branch $1"
   fi
