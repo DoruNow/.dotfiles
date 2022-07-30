@@ -51,15 +51,15 @@ launch() {
 }
 
 erp() {
-    if sudo lsof -i -P -n | grep -q 3000
-    then
-        sudo lsof -i -P -n | grep 3000 | awk '{ print $2}' | xargs sudo kill -9 | > /dev/null
-    fi
+    # if sudo lsof -i -P -n | grep -q 3000
+    # then
+    #     sudo lsof -i -P -n | grep 3000 | awk '{ print $2}' | xargs sudo kill -9 | > /dev/null
+    # fi
     tmux new-session -d -s erp \; \
     send-keys 'z erp8 && npm run serve' C-m \; \
     split-window -v \; \
     select-pane -t 1 \; \
-    send-keys 'z latestcollection && npm run e2e' C-m \;
+    send-keys 'z latestcollection && npm run build && npm run e2e' C-m \;
     sudo service nginx start
 }
 

@@ -42,6 +42,7 @@ alias gfom='git fetch --prune origin master:master && git rebase master'
 alias ggpull='git pull origin "$(git_current_branch)"'
 alias ggpush='loghours && git pull --rebase origin master && git push origin "$(git_current_branch)" && loghours'
 alias gl='git pull'
+alias glb='git pull origin $(current_branch)'
 alias glola="git log --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --all"
 alias gpf!='git push --force'
 alias gpf='git push --force-with-lease origin $(current_branch)'
@@ -70,7 +71,7 @@ function grename() {
   fi
 }
 
-function gcmsg () {
+function gcmsgd () {
   loghours
   branch=$(git_current_branch) 
   if [[ ${branch} == "master" ]]
