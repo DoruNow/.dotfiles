@@ -71,7 +71,7 @@ function grename() {
   fi
 }
 
-function gcmsgd () {
+function gcmsg () {
   loghours
   branch=$(git_current_branch) 
   if [[ ${branch} == "master" ]]

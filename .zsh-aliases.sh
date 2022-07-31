@@ -1,12 +1,13 @@
 #!/bin/zsh
 
-alias aliases-config="code ~/.dotfiles/.zsh-aliases.sh"
-alias functions-config="code ~/.dotfiles/.zsh-functions.sh"
-alias git-config="code ~/.dotfiles/.gitconfig.sh"
+alias aliases_config="code ~/.dotfiles/.zsh-aliases.sh"
+alias functions_config="code ~/.dotfiles/.zsh-functions.sh"
+alias git_config="code ~/.dotfiles/.gitconfig.sh"
 
 # log into cabana droplet with secondary ssh key
 alias remotecab="ssh -i ~/.ssh/id2_rsa.pub root@134.122.53.64"
 alias copy="xclip -sel clip"
+alias screenshot="maim -s | xclip -selection clipboard -t image/png"
 alias check="git difftool master"
 alias act="source /home/doru/dev/spynl.app/.venv/bin/activate"
 alias mnt="mount | awk -F' ' '{ printf \"%s\t%s\n\",\$1,\$3; }' | column -t | egrep ^/dev/ | sort"
