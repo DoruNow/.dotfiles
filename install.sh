@@ -12,3 +12,8 @@ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/p
 # plugins=(z zsh-autosuggestions zsh-syntax-highlighting)
 # to set vscode as default editor
 git config --global core.editor "code --wait"
+# git config user.name doru
+# git config user.email doru.dev.now@gmail.com
+
+# git config user.name doru
+# git config user.email teodor@softwear.nl

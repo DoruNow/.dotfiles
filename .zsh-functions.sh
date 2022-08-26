@@ -117,3 +117,9 @@ gcod() {
 # gli() {
 #   git pull > pull && rg 'package.json' -- pull 
 # }
+
+connect-dot-files() {
+  echo 'source ~/sw/.dotfiles/.zsh-aliases.sh'>> ~/.zshrc
+  echo 'source ~/sw/.dotfiles/.gitconfig.sh'>> ~/.zshrc
+  echo 'source ~/sw/.dotfiles/.zsh-functions.sh'>> ~/.zshrc
+}
