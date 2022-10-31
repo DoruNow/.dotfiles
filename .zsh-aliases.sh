@@ -17,4 +17,6 @@ alias source-all="for f in /home/doru/.dotfiles/*.sh; do source $f; done"
 alias fix="npm run lint --fix"
 alias serve="npm run serve"
 alias start="npm run start"
+alias rg="rg -g '!dist/' -g '!package-lock.json'"
+alias uu="sudo apt-get update && sudo apt-get upgrade -y"
 

@@ -60,7 +60,6 @@ erp() {
     split-window -v \; \
     select-pane -t 1 \; \
     send-keys 'z latestcollection && npm run build && npm run e2e' C-m \;
-    sudo service nginx start
 }
 
 rr() {
