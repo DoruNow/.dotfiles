@@ -3,7 +3,7 @@
 alias aliases_config="code ~/.dotfiles/.zsh-aliases.sh"
 alias functions_config="code ~/.dotfiles/.zsh-functions.sh"
 alias git_config="code ~/.dotfiles/.gitconfig.sh"
-
+alias dot="code -a ~/.dotfiles"
 # log into cabana droplet with secondary ssh key
 alias remotecab="ssh -i ~/.ssh/id2_rsa.pub root@134.122.53.64"
 alias copy="xclip -sel clip"

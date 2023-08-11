@@ -56,10 +56,10 @@ erp() {
     #     sudo lsof -i -P -n | grep 3000 | awk '{ print $2}' | xargs sudo kill -9 | > /dev/null
     # fi
     tmux new-session -d -s erp \; \
-    send-keys 'z erp8 && npm run serve' C-m \; \
+    send-keys 'cd ~/dev/erp8 && npm run serve' C-m \; \
     split-window -v \; \
     select-pane -t 1 \; \
-    send-keys 'z latestcollection && npm run build && npm run e2e' C-m \;
+    send-keys 'cd ~/dev/latest-collection-server && npm run build && npm run e2e' C-m \;
 }
 
 rr() {
@@ -112,13 +112,25 @@ gcod() {
   git checkout doru/$ticket && echo '--------SUCCESS--------'
 }
 
+gcbl() {
+  typeset -u ticketNumber;
+  ticketNumber=$1
+  git checkout master && git checkout -b doru/LAT-$ticketNumber && echo '--------SUCCESS--------'
+}
+
+gcol() {
+  typeset -u ticketNumber;
+  ticketNumber=$1
+  git checkout doru/LAT-$ticketNumber && echo '--------SUCCESS--------'
+}
+
 # todo
 # gli() {
 #   git pull > pull && rg 'package.json' -- pull 
 # }
 
 connect-dot-files() {
-  echo 'source ~/sw/.dotfiles/.zsh-aliases.sh'>> ~/.zshrc
-  echo 'source ~/sw/.dotfiles/.gitconfig.sh'>> ~/.zshrc
-  echo 'source ~/sw/.dotfiles/.zsh-functions.sh'>> ~/.zshrc
+  echo 'source ~/.dotfiles/.zsh-aliases.sh'>> ~/.zshrc
+  echo 'source ~/.dotfiles/.gitconfig.sh'>> ~/.zshrc
+  echo 'source ~/.dotfiles/.zsh-functions.sh'>> ~/.zshrc
 }
