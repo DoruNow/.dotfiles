@@ -19,4 +19,5 @@ alias serve="npm run serve"
 alias start="npm run start"
 alias rg="rg -g '!dist/' -g '!package-lock.json'"
 alias uu="sudo apt-get update && sudo apt-get upgrade -y"
+alias edge="ssh -i ~/.ssh/ssh-edge.pub ec2-user@ec2-34-247-217-161.eu-west-1.compute.amazonaws.com"
 
