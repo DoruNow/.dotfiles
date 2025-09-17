@@ -48,6 +48,7 @@ alias gpf!='git push --force'
 alias gpf='git push --force-with-lease origin $(current_branch)'
 alias grb='git rebase origin/master'
 alias grbip='gfom && echo "---------Fetched latest master---------" && git rebase -i origin/master && echo "---------Rebased to latest master---------" && git push --force-with-lease origin $(current_branch) && echo "---------Pushed to remote---------"'
+alias grbipn='gfom && echo "---------Fetched latest master---------" && git rebase -i origin/master && echo "---------Rebased to latest master---------" && git push -o ci.skip --force-with-lease origin $(current_branch) && echo "---------Pushed to remote---------"'
 alias loghours='echo ------------------------ LOG HOURS PLS ---------------------------'
 
 # Refactor to function
@@ -88,3 +89,62 @@ function gcmsg () {
     git commit -m "$branch $1"
   fi
 }
+
+# Enhanced gcmsg with push/E2E prompts
+function gcmsg_enhanced () {
+  loghours
+  branch=$(git_current_branch) 
+  if [[ ${branch} == "master" ]]
+  then
+    echo "You are on master, please checkout a branch."
+    return
+  fi
+  branch=${branch##*\/} 
+  branch=${branch%-[[:alpha:]]} 
+  if [[ $2 == "n" ]]
+  then
+    git commit -nm "$branch $1"
+  else
+    git commit -m "$branch $1"
+  fi
+  
+  # Check if commit was successful
+  if [[ $? -eq 0 ]]; then
+    echo ""
+    echo "✅ Commit successful!"
+    
+    # Ask if user wants to push
+    echo -n "🚀 Push now? (y/N): "
+    read -r push_choice
+    if [[ $push_choice =~ ^[Yy]$ ]]; then
+      echo ""
+      echo -n "🧪 Run E2E tests locally? (y/N): "
+      read -r e2e_choice
+      
+      if [[ $e2e_choice =~ ^[Yy]$ ]]; then
+        echo ""
+        echo "🧪 Running E2E tests..."
+        if npx cypress run --browser chrome; then
+          echo "✅ E2E tests passed!"
+          echo "🚀 Pushing to remote..."
+          grbip
+        else
+          echo "❌ E2E tests failed. Not pushing."
+          echo "💡 Fix the tests and run 'grbip' manually when ready."
+          return 1
+        fi
+      else
+        echo "🚀 Pushing to remote (E2E tests skipped)..."
+        grbip
+      fi
+    else
+      echo "ℹ️  Not pushing. Run 'grbip' manually when ready."
+    fi
+  else
+    echo "❌ Commit failed."
+    return 1
+  fi
+}
+
+# Alias for the enhanced version
+alias gcmsg='gcmsg_enhanced'
