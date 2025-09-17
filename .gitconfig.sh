@@ -50,7 +50,6 @@ alias grb='git rebase origin/master'
 alias grbip='gfom && echo "---------Fetched latest master---------" && git rebase -i origin/master && echo "---------Rebased to latest master---------" && git push --force-with-lease origin $(current_branch) && echo "---------Pushed to remote---------"'
 alias grbipn='gfom && echo "---------Fetched latest master---------" && git rebase -i origin/master && echo "---------Rebased to latest master---------" && git push -o ci.skip --force-with-lease origin $(current_branch) && echo "---------Pushed to remote---------"'
 alias loghours='echo ------------------------ LOG HOURS PLS ---------------------------'
-
 # Refactor to function
 # alias format="get-staged | xargs prettier --write 2> /dev/null"
 alias remove-log="git add .; git diff --cached --name-only | xargs sed -i /console.log/d; git add ."
@@ -72,26 +71,7 @@ function grename() {
   fi
 }
 
-function gcmsg () {
-  loghours
-  branch=$(git_current_branch) 
-  if [[ ${branch} == "master" ]]
-  then
-    echo "You are on master, please checkout a branch."
-    return
-  fi
-  branch=${branch##*\/} 
-  branch=${branch%-[[:alpha:]]} 
-  if [[ $2 == "n" ]]
-  then
-    git commit -nm "$branch $1"
-  else
-    git commit -m "$branch $1"
-  fi
-}
-
-# Enhanced gcmsg with push/E2E prompts
-function gcmsg_enhanced () {
+function gcmsg_enhanced() {
   loghours
   branch=$(git_current_branch) 
   if [[ ${branch} == "master" ]]
@@ -134,8 +114,8 @@ function gcmsg_enhanced () {
           return 1
         fi
       else
-        echo "🚀 Pushing to remote (E2E tests skipped)..."
-        grbip
+        echo "🚀 Pushing to remote (E2E tests skipped, CI tests disabled)..."
+        grbipn
       fi
     else
       echo "ℹ️  Not pushing. Run 'grbip' manually when ready."
